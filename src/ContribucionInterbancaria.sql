@@ -1,8 +1,7 @@
-CREATE DATABASE ContribucionInterbancaria
-
+CREATE DATABASE ContribucionInterbancaria;
 
 CREATE TABLE DolarBancos(
-	idDolar INT NOT NULL IDENTITY(1,1),
+	idDolar INT IDENTITY(1,1) NOT NULL,
 	idBanco INT NOT NULL,
 	idTipo	INT NOT NULL,
 	compraActual FLOAT NOT NULL,
@@ -12,22 +11,25 @@ CREATE TABLE DolarBancos(
 	compra48h FLOAT,
 	venta48h FLOAT,
 	fechaHora DATETIME NOT NULL,
-	estatus INT NOT NULL
+	estatus INT NOT NULL,
+	CONSTRAINT FkidBanco FOREIGN KEY (idBanco) REFERENCES Bancos(idBanco),
+	CONSTRAINT FkidTipo FOREIGN KEY (idTipo) REFERENCES TipoDolares(idTipo)
 )
 
 
 CREATE TABLE Bancos(
-	idBanco INT NOT NULL,
+	idBanco INT IDENTITY(1,1) NOT NULL,
 	nombreBanco VARCHAR(50) NOT NULL,
 	fechaAlta DATE NOT NULL,
+	CONSTRAINT idBanco PRIMARY KEY (idBanco)
 )
 
 CREATE TABLE TipoDolares(
-	idTipo INT NOT NULL IDENTITY(1,1),
+	idTipo INT IDENTITY(1,1) NOT NULL,
 	tipoDolar VARCHAR(50) NOT NULL,
-	fechaRegistro DATE NOT NULL
+	fechaRegistro DATE NOT NULL,
+	CONSTRAINT idTipo PRIMARY KEY (idTipo)
 )
-
 
 CREATE PROCEDURE crudDolarBancos
 	@idDolar	     INT,
